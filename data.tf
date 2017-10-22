@@ -6,7 +6,11 @@ data "aws_ami" "ami" {
 
   filter {
     name   = "name"
-    values = ["${var.os == "windows" ? "Windows_Server-2016-English-Full-Base-*" : "CentOS 7 (x86_64) - with Updates HVM*"}"]
+    values = [
+      "${var.os == "windows" 
+      ? lookup(var.ami_name, "windows") 
+      : lookup(var.ami_name, "linux")}"
+    ]
   }
 }
 
@@ -29,4 +33,9 @@ data "template_file" "user_data" {
 #data "aws_vpc" "default" {}
 #data "aws_availability_zones" "available" {}
 #data "aws_subnet" "default" {}
-data "aws_security_group" "default" {}
+data "aws_security_group" "default" {
+  filter {
+    name   = "group-name"
+    values = ["default"]
+  }
+}

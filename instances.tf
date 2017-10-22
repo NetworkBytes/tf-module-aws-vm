@@ -9,11 +9,7 @@ module "ec2_node" {
   instance_type          = "{var.instance_type}"
   #key_name               = "user1"
   monitoring             = false
-  vpc_security_group_ids = [ 
-    "${var.vpc_security_group_ids == "" 
-    ? data.aws_security_group.default.id 
-    : var.vpc_security_group_ids}"
-  ]
+  vpc_security_group_ids = [ "${local.vpc_security_group_ids}" ]
 
 
 

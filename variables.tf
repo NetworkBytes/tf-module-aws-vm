@@ -3,8 +3,8 @@ variable "region" {
 }
 
 variable os {
-  #default = "windows"
-  default = "linux"
+  default = "windows"
+  #default = "linux"
 }
 
 variable "dnssuffix" {
@@ -25,4 +25,13 @@ variable "name" {
 
 variable "vpc_security_group_ids" {
   default = ""
+}
+
+variable "ami_name" {
+  type = "map"
+
+  default = {
+    windows = "Windows_Server-2016-English-Full-Base-*"
+    linux = "unknown CentOS 7 (x86_64) - with Updates HVM*"
+  }
 }
