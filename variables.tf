@@ -1,3 +1,18 @@
+#########################################
+# Config Map variable
+#########################################
+
+variable "config" {
+  type = "map"
+
+  default {}
+}
+
+
+#########################################
+# Standard Variables
+#########################################
+
 variable "region" {
   default = "ap-southeast-2"
 }

@@ -5,4 +5,8 @@ locals {
     : var.vpc_security_group_ids}"
   ]
 
+  region = "${lookup(var.config, "region", var.region)}"
+
+
+
 }
