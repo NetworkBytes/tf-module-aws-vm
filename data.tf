@@ -6,11 +6,7 @@ data "aws_ami" "ami" {
 
   filter {
     name   = "name"
-    values = [
-      "${var.os == "windows" 
-      ? lookup(var.ami_name, "windows") 
-      : lookup(var.ami_name, "linux")}"
-    ]
+    values = [ ${lookup(var.ami_name, var.os} ]
   }
 }
 
