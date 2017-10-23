@@ -3,11 +3,13 @@ AWS EC2 Instance Terraform module
 
 Terraform module which creates EC2 instance(s) on AWS.
 
+This module can be used by either passing a "Config map" to the module or standard module variables
+the reason to use the Config map option is to simplify the number of variables which need to be passed to the module and also opens up the possibility to using third party key/value stores (Consul) ie dynamically generate a map of key/values passing a map of variables to the module.
+
+This module will eventually support bothe Windows and Linux operating systems as well as using Chef or Puppet as the configuration management system 
+
 Usage
 -----
-
-This can be used by either oassing a Config MAP or the standard vartiables
-
 
 
 Example using variables
@@ -20,6 +22,7 @@ module "my_ec2_instance" {
   
   key_name               = "user1"
   vpc_security_group_ids = ["sg-12345678"]
+  ...
 }
 ```
 
@@ -32,6 +35,7 @@ module "my_ec2_instance" {
   config = {
     name  = "my-ec2"
     count = 1
+    ...
   }
 }
 ```

@@ -2,11 +2,11 @@
 module "ec2_node" {
   source = "terraform-aws-modules/ec2-instance/aws"
 
-  name  = "${var.name == "" ? var.os : var.name}"
-  count = 1
+  name  = "${local.instance_name}"
+  count = "${local.vm_count}"
   
-  ami                    = "${data.aws_ami.ami.id}"
-  instance_type          = "{var.instance_type}"
+  ami                    = "${local.ami_id}"
+  instance_type          = "${local.instance_type}"
   #key_name               = "user1"
   monitoring             = false
   vpc_security_group_ids = [ "${local.vpc_security_group_ids}" ]

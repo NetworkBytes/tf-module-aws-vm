@@ -6,7 +6,7 @@ data "aws_ami" "ami" {
 
   filter {
     name   = "name"
-    values = [ ${lookup(var.ami_name, var.os} ]
+    values = [ "${local.ami_name}" ]
   }
 }
 

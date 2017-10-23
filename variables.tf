@@ -4,7 +4,7 @@
 
 variable "config" {
   type = "map"
-
+  description = "Config Map which can be passed to this module"
   default {}
 }
 
@@ -20,14 +20,14 @@ variable "region" {
 }
 
 variable vm_count {
-  description = "How many virtual machines are to be provisioned"
+  description = "Count of how many instances to provision"
+  default = "1"
   type = "string" 
 }
 
 variable os {
   description = "Operating systems to deploy; valid options are \"windows\" or \"linux\""
   default = "windows"
-  #default = "linux"
   type = "string" 
 }
 
@@ -48,7 +48,8 @@ variable "instance_type" {
 	default = "t2.micro"
 }
 
-variable "name" {
+variable "instance_name" {
+  description = "The name for the instance; defaults to var.os eg windows/linux"
   default = ""
 }
 
@@ -58,9 +59,10 @@ variable "vpc_security_group_ids" {
 
 variable "ami_name" {
   type = "map"
+  description = "The name of the Amazon AMI image to use; defaults dependent on var.os, an OS of windows defaults to Windows_Server-2016-English-Full-Base-*, linux defaults to TODO"
 
   default = {
     windows = "Windows_Server-2016-English-Full-Base-*"
-    linux = "unknown CentOS 7 (x86_64) - with Updates HVM*"
+    linux   = "unknown CentOS 7 (x86_64) - with Updates HVM*"
   }
 }
