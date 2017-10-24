@@ -44,7 +44,7 @@ module "my_ec2_instance" {
 Examples
 --------
 
-* [Basic EC2 instance](https://github.com/NewtorkBytes/tf-module-aws-vm/tree/master/examples/basic)
+* [Basic EC2 instance](https://github.com/NetworkBytes/tf-module-aws-vm/tree/master/examples/basic)
 
 Inputs
 ---------
