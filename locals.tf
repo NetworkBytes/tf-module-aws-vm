@@ -1,6 +1,7 @@
 locals {
 
   os            = "${lookup(var.config, "os", var.os)}"
+  aws_region    = "${lookup(var.config, "aws_region", var.aws_region)}"
 
   ami_name      = "${lookup(var.config, "ami_name", lookup(var.ami_name, local.os))}"
   ami        = "${var.ami == "" ? data.aws_ami.ami.id : var.ami}"
@@ -18,6 +19,13 @@ locals {
   environment = "${lookup(var.config, "environment" , var.environment)}"
   appid = "${lookup(var.config, "appid" , var.appid)}"
 
+  user_data = "${lookup(var.config, "user_data" , var.user_data == "" ? data.template_file.user_data.rendered : var.user_data)}"
+
+  tags = {
+    Terraform = "true"
+    Environment = "${local.environment}"
+  }
+
 
   #########################################
   # variables from AWS module
@@ -34,19 +42,19 @@ locals {
   instance_type = "${lookup(var.config, "instance_type" , var.instance_type)}"
   key_name = "${lookup(var.config, "key_name" , var.key_name)}"
   monitoring = "${lookup(var.config, "monitoring" , var.monitoring)}"
-  vpc_security_group_ids = "${lookup(var.config, "vpc_security_group_ids" , var.vpc_security_group_ids)}"
+  vpc_security_group_ids = ["${split(",", lookup(var.config, "vpc_security_group_ids" , var.vpc_security_group_ids))}"]
   subnet_id = "${lookup(var.config, "subnet_id" , var.subnet_id)}"
   associate_public_ip_address = "${lookup(var.config, "associate_public_ip_address" , var.associate_public_ip_address)}"
   private_ip = "${lookup(var.config, "private_ip" , var.private_ip)}"
   source_dest_check = "${lookup(var.config, "source_dest_check" , var.source_dest_check)}"
-  user_data = "${lookup(var.config, "user_data" , var.user_data)}"
+  #user_data = "${lookup(var.config, "user_data" , var.user_data)}"
   iam_instance_profile = "${lookup(var.config, "iam_instance_profile" , var.iam_instance_profile)}"
   ipv6_address_count = "${lookup(var.config, "ipv6_address_count" , var.ipv6_address_count)}"
-  ipv6_addresses = "${lookup(var.config, "ipv6_addresses" , var.ipv6_addresses)}"
-  tags = "${lookup(var.config, "tags" , var.tags)}"
-  volume_tags = "${lookup(var.config, "volume_tags" , var.volume_tags)}"
-  root_block_device = "${lookup(var.config, "root_block_device" , var.root_block_device)}"
-  ebs_block_device = "${lookup(var.config, "ebs_block_device" , var.ebs_block_device)}"
-  ephemeral_block_device = "${lookup(var.config, "ephemeral_block_device" , var.ephemeral_block_device)}"
-  network_interface = "${lookup(var.config, "network_interface" , var.network_interface)}"
+  ipv6_addresses = ["${split(",", lookup(var.config, "ipv6_addresses" , var.ipv6_addresses))}"]
+  #tags = "${lookup(var.config, "tags" , var.tags)}"
+  #volume_tags = "${lookup(var.config, "volume_tags" , var.volume_tags)}"
+  root_block_device = ["${split(",", lookup(var.config, "root_block_device" , var.root_block_device))}"]
+  ebs_block_device = ["${split(",", lookup(var.config, "ebs_block_device" , var.ebs_block_device))}"]
+  ephemeral_block_device = ["${split(",", lookup(var.config, "ephemeral_block_device" , var.ephemeral_block_device))}"]
+  network_interface = ["${split(",", lookup(var.config, "network_interface" , var.network_interface))}"]
 }
