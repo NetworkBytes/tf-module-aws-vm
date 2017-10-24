@@ -2,15 +2,16 @@ locals {
 
   os            = "${lookup(var.config, "os", var.os)}"
   aws_region    = "${lookup(var.config, "aws_region", var.aws_region)}"
+  dnssuffix     = "${lookup(var.config, "dnssuffix", var.dnssuffix)}"
 
   ami_name      = "${lookup(var.config, "ami_name", lookup(var.ami_name, local.os))}"
   ami        = "${var.ami == "" ? data.aws_ami.ami.id : var.ami}"
 
 
-  #vpc_security_group_ids_var = "${var.vpc_security_group_ids == ""
-  #  ? data.aws_security_group.default.id : var.vpc_security_group_ids}"
+  vpc_security_group_ids_var = "${var.vpc_security_group_ids == ""
+    ? data.aws_security_group.default.id : var.vpc_security_group_ids}"
 
-  #vpc_security_group_ids = "${lookup(var.config, "vpc_security_group_ids", local.vpc_security_group_ids_var)}"
+  vpc_security_group_ids = ["${split(",", lookup(var.config, "vpc_security_group_ids", local.vpc_security_group_ids_var))}"]
 
   # if name is blank, default to using "local.os"
   name_var = "${var.name == "" ? local.os : var.name}"
@@ -42,7 +43,7 @@ locals {
   instance_type = "${lookup(var.config, "instance_type" , var.instance_type)}"
   key_name = "${lookup(var.config, "key_name" , var.key_name)}"
   monitoring = "${lookup(var.config, "monitoring" , var.monitoring)}"
-  vpc_security_group_ids = ["${split(",", lookup(var.config, "vpc_security_group_ids" , var.vpc_security_group_ids))}"]
+  #vpc_security_group_ids = ["${split(",", lookup(var.config, "vpc_security_group_ids" , var.vpc_security_group_ids))}"]
   subnet_id = "${lookup(var.config, "subnet_id" , var.subnet_id)}"
   associate_public_ip_address = "${lookup(var.config, "associate_public_ip_address" , var.associate_public_ip_address)}"
   private_ip = "${lookup(var.config, "private_ip" , var.private_ip)}"

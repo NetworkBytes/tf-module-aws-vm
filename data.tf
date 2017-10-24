@@ -15,13 +15,13 @@ data "aws_ami" "ami" {
 ## User Data Config script
 ###################################
 data "template_file" "user_data" {
-    template = "${file("scripts/bootstrap_agent-puppet_${var.os}.tpl")}"
+    template = "${file("${path.module}/scripts/bootstrap_agent-puppet_${local.os}.tpl")}"
     vars {
         role            = ""
-        #name            = "${var.name}.infrastructure.lab"
+        #name            = "${local.name}.${local.dnssuffix}"
         master_name     = ""
         masterip        = ""
-        dnssuffix       = ""
+        dnssuffix       = "${local.dnssuffix}"
     }
 }
 
