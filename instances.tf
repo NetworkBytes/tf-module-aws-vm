@@ -1,13 +1,9 @@
-
+#resource "aws_instance" "this" {
 module "ec2_node" {
   source = "terraform-aws-modules/ec2-instance/aws"
   name = "${local.name}"
-######
-# EC2 instance
-######
-#resource "aws_instance" "this" {
-#  count = "${local.count}"
-#
+  count = "${local.count}"
+
   ami                    = "${local.ami}"
   instance_type          = "${local.instance_type}"
   user_data              = "${local.user_data}"

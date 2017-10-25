@@ -18,7 +18,7 @@ data "template_file" "user_data" {
     template = "${file("${path.module}/scripts/bootstrap_agent-puppet_${local.os}.tpl")}"
     vars {
         role            = ""
-        #name            = "${local.name}.${local.dnssuffix}"
+        name            = "${local.name}.${local.dnssuffix}"
         master_name     = ""
         masterip        = ""
         dnssuffix       = "${local.dnssuffix}"

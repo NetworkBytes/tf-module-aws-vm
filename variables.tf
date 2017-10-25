@@ -19,13 +19,13 @@ variable "ami_name" {
 
   default = {
     windows = "Windows_Server-2016-English-Full-Base-*"
-    linux   = "unknown CentOS 7 (x86_64) - with Updates HVM*"
+    linux   = "CentOS Linux 7 x86_64 HVM EBS*"
   }
 }
 
 variable "os" {
   description = "Operating systems to deploy; valid options are \"windows\" or \"linux\""
-  default = "windows"
+  default = "linux"
 }
 
 
