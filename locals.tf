@@ -20,12 +20,20 @@ locals {
   environment = "${lookup(var.config, "environment" , var.environment)}"
   appid = "${lookup(var.config, "appid" , var.appid)}"
 
-  user_data = "${lookup(var.config, "user_data" , var.user_data == "" ? data.template_file.user_data.rendered : var.user_data)}"
+  user_data = "" # ${lookup(var.config, "user_data" , var.user_data == "" ? data.template_file.user_data.rendered : var.user_data)}"
 
   tags = {
     Terraform = "true"
     Environment = "${local.environment}"
   }
+
+  key_file = "${lookup(var.config, "key_file" , var.key_file)}"
+  key_file_private = "${lookup(var.config, "key_file_private" , var.key_file_private)}"
+
+
+  user_default = "${local.os == "windows" ? "Administrator" : "centos"}"
+  user = "${lookup(var.config, "user", local.user_default)}"
+
 
 
   #########################################

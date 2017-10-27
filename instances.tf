@@ -1,7 +1,7 @@
-#resource "aws_instance" "this" {
-module "ec2_node" {
-  source = "terraform-aws-modules/ec2-instance/aws"
-  name = "${local.name}"
+resource "aws_instance" "this" {
+  # module "ec2_node" {
+  # source = "terraform-aws-modules/ec2-instance/aws"
+  # name = "${local.name}"
   count = "${local.count}"
 
   ami                    = "${local.ami}"
@@ -14,7 +14,7 @@ module "ec2_node" {
   iam_instance_profile   = "${local.iam_instance_profile}"
 
   associate_public_ip_address = "${local.associate_public_ip_address}"
-  private_ip                  = "${local.private_ip}"
+  #private_ip                  = "${local.private_ip}"
   #ipv6_address_count          = "${local.ipv6_address_count}"
   #ipv6_addresses              = "${local.ipv6_addresses}"
 
@@ -35,4 +35,27 @@ module "ec2_node" {
   # network_interface = "${local.network_interface}"
 
   #tags = "${merge(local.tags, map("Name", format("%s-%d", local.name, count.index+1)))}"
+
+  
+
+
+  #########################################
+  # Provisioners 
+  #########################################
+
+  connection {
+    type        = "ssh"
+    user        = "${local.user}"
+    private_key = "${file(pathexpand(local.key_file_private))}"
+  }
+
+
+  provisioner "file" {
+    source = "${path.module}/scripts/getstatus_cloud-init.py"
+    destination = "/tmp/getstatus_cloud-init.py"
+  }
+
+  provisioner "remote-exec" {
+    inline = "python /tmp/getstatus_cloud-init.py"
+  }
 }

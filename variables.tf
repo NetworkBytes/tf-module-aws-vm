@@ -44,7 +44,7 @@ variable "appid" { default = "" }
 
 variable "cm_flavour" {
   description = "The configuration management software to use; valid options Puppet / Chef"
-  default = ""
+  default = "chef"
 }
 
 variable "cm_master" {
@@ -54,12 +54,23 @@ variable "cm_master" {
 
 variable "cm_role" {
   description = "The configuration management role to apply to this host"
+  default = "web_server"
+}
+
+variable "user" {
+  description = "The provisioner connection user; defaults to centos for linux and Administrator for windows"
   default = ""
 }
 
+variable "key_file" {
+  description = "The path to the ssh key file to use for connecting to the instance; default \"~/.ssh/id_rsa.pub\""
+  default     = "~/.ssh/id_rsa.pub"
+}
 
-
-
+variable "key_file_private" {
+  description = "The path to the ssh private key file to use for connecting to the instance; default \"~/.ssh/id_rsa\""
+  default     = "~/.ssh/id_rsa"
+}
 
 #########################################
 # variables from AWS module
@@ -118,7 +129,7 @@ variable "instance_type" {
 
 variable "key_name" {
   description = "The key name to use for the instance"
-  default     = ""
+  default     = "terraform"
 }
 
 variable "monitoring" {
