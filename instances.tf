@@ -31,7 +31,7 @@ resource "aws_instance" "this" {
   #########################################
 
   connection {
-    type        = "ssh"
+    type        = "ssh" #TODO support winrm
     user        = "${local.user}"
     private_key = "${file(pathexpand(local.key_file_private))}"
   }

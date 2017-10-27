@@ -48,9 +48,14 @@ locals {
   placement_group = "${lookup(var.config, "placement_group" , var.placement_group)}"
   instance_type   = "${lookup(var.config, "instance_type" , var.instance_type)}"
 
+
   key_file = "${lookup(var.config, "key_file" , var.key_file)}"
   key_file_private = "${lookup(var.config, "key_file_private" , var.key_file_private)}"
-  key_name        = "${lookup(var.config, "key_name" , var.key_name)}"
+
+  # extract key from ssh keyfile
+  key_name_from_file = "${replace(element(split(" ", file(pathexpand(local.key_file))),2),"\n", "")}"
+  key_name_var       = "${var.key_name == "" ? local.key_name_from_file : var.key_name}"
+  key_name           = "${lookup(var.config, "key_name" , local.key_name_var)}"
 
   subnet_id       = "${lookup(var.config, "subnet_id" , var.subnet_id)}"
   associate_public_ip_address = "${lookup(var.config, "associate_public_ip_address" , var.associate_public_ip_address)}"

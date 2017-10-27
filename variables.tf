@@ -87,7 +87,7 @@ variable "user" {
 
 variable "key_name" {
   description = "The key name to use for the instance"
-  default     = "terraform"
+  default     = ""
 }
 
 variable "key_file" {
