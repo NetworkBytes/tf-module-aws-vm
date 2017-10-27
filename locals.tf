@@ -2,7 +2,6 @@ locals {
 
   os            = "${lookup(var.config, "os", var.os)}"
   aws_region    = "${lookup(var.config, "aws_region", var.aws_region)}"
-  dnssuffix     = "${lookup(var.config, "dnssuffix", var.dnssuffix)}"
 
   ami_name      = "${lookup(var.config, "ami_name", lookup(var.ami_name, local.os))}"
   ami        = "${var.ami == "" ? data.aws_ami.ami.id : var.ami}"
@@ -17,53 +16,45 @@ locals {
   name_var = "${var.name == "" ? local.os : var.name}"
   name = "${lookup(var.config, "name", local.name_var)}"
 
+  # Chef or Puppet
+  cm_flavour      = "${lookup(var.config, "cm_flavour" , var.cm_flavour)}"
+  cm_master       = "${lookup(var.config, "cm_master"  , var.cm_master)}"
+  cm_role         = "${lookup(var.config, "cm_role"    , var.cm_role)}"
+  cm_client_key   = "${lookup(var.config, "cm_client_key" , var.cm_client_key)}"
+  cm_client_name  = "${lookup(var.config, "cm_client_name", var.cm_client_name)}"
+  cm_hostname     = "${lookup(var.config, "cm_hostname"   , var.cm_hostname)}"
+
+  user_data       = "${lookup(var.config, "user_data"  , var.user_data == "" ? data.template_file.user_data.rendered : var.user_data)}"
+
   environment = "${lookup(var.config, "environment" , var.environment)}"
   appid = "${lookup(var.config, "appid" , var.appid)}"
 
-  user_data = "" # ${lookup(var.config, "user_data" , var.user_data == "" ? data.template_file.user_data.rendered : var.user_data)}"
+
+
 
   tags = {
     Terraform = "true"
     Environment = "${local.environment}"
   }
+  #tags           = "${lookup(var.config, "tags" , var.tags)}"
+
+  
+  # provisioner user
+  user_default    = "${local.os == "windows" ? "Administrator" : "centos"}"
+  user            = "${lookup(var.config, "user", local.user_default)}"
+
+  count           = "${lookup(var.config, "count" , var.count)}"
+  availability_zone = "${lookup(var.config, "availability_zone" , var.availability_zone)}"
+  placement_group = "${lookup(var.config, "placement_group" , var.placement_group)}"
+  instance_type   = "${lookup(var.config, "instance_type" , var.instance_type)}"
 
   key_file = "${lookup(var.config, "key_file" , var.key_file)}"
   key_file_private = "${lookup(var.config, "key_file_private" , var.key_file_private)}"
+  key_name        = "${lookup(var.config, "key_name" , var.key_name)}"
 
-
-  user_default = "${local.os == "windows" ? "Administrator" : "centos"}"
-  user = "${lookup(var.config, "user", local.user_default)}"
-
-
-
-  #########################################
-  # variables from AWS module
-  #########################################
-  #name = "${lookup(var.config, "name" , var.name)}"
-  count = "${lookup(var.config, "count" , var.count)}"
-  #ami = "${lookup(var.config, "ami" , var.ami)}"
-  availability_zone = "${lookup(var.config, "availability_zone" , var.availability_zone)}"
-  placement_group = "${lookup(var.config, "placement_group" , var.placement_group)}"
-  tenancy = "${lookup(var.config, "tenancy" , var.tenancy)}"
-  ebs_optimized = "${lookup(var.config, "ebs_optimized" , var.ebs_optimized)}"
-  disable_api_termination = "${lookup(var.config, "disable_api_termination" , var.disable_api_termination)}"
-  instance_initiated_shutdown_behavior = "${lookup(var.config, "instance_initiated_shutdown_behavior" , var.instance_initiated_shutdown_behavior)}"
-  instance_type = "${lookup(var.config, "instance_type" , var.instance_type)}"
-  key_name = "${lookup(var.config, "key_name" , var.key_name)}"
-  monitoring = "${lookup(var.config, "monitoring" , var.monitoring)}"
-  #vpc_security_group_ids = ["${split(",", lookup(var.config, "vpc_security_group_ids" , var.vpc_security_group_ids))}"]
-  subnet_id = "${lookup(var.config, "subnet_id" , var.subnet_id)}"
+  subnet_id       = "${lookup(var.config, "subnet_id" , var.subnet_id)}"
   associate_public_ip_address = "${lookup(var.config, "associate_public_ip_address" , var.associate_public_ip_address)}"
-  private_ip = "${lookup(var.config, "private_ip" , var.private_ip)}"
-  source_dest_check = "${lookup(var.config, "source_dest_check" , var.source_dest_check)}"
-  #user_data = "${lookup(var.config, "user_data" , var.user_data)}"
+  private_ip      = "${lookup(var.config, "private_ip" , var.private_ip)}"
   iam_instance_profile = "${lookup(var.config, "iam_instance_profile" , var.iam_instance_profile)}"
-  ipv6_address_count = "${lookup(var.config, "ipv6_address_count" , var.ipv6_address_count)}"
-  ipv6_addresses = ["${split(",", lookup(var.config, "ipv6_addresses" , var.ipv6_addresses))}"]
-  #tags = "${lookup(var.config, "tags" , var.tags)}"
-  #volume_tags = "${lookup(var.config, "volume_tags" , var.volume_tags)}"
   root_block_device = ["${split(",", lookup(var.config, "root_block_device" , var.root_block_device))}"]
-  ebs_block_device = ["${split(",", lookup(var.config, "ebs_block_device" , var.ebs_block_device))}"]
-  ephemeral_block_device = ["${split(",", lookup(var.config, "ephemeral_block_device" , var.ephemeral_block_device))}"]
-  network_interface = ["${split(",", lookup(var.config, "network_interface" , var.network_interface))}"]
 }

@@ -15,13 +15,14 @@ data "aws_ami" "ami" {
 ## User Data Config script
 ###################################
 data "template_file" "user_data" {
-    template = "${file("${path.module}/scripts/bootstrap_agent-puppet_${local.os}.tpl")}"
+    template = "${file("${path.module}/scripts/cloud-init_${local.cm_flavour}_${local.os}.tpl")}"
     vars {
-        role            = ""
-        name            = "${local.name}.${local.dnssuffix}"
-        master_name     = ""
-        masterip        = ""
-        dnssuffix       = "${local.dnssuffix}"
+        cm_role         = "${local.cm_role}"
+        cm_hostname     = "${local.cm_hostname}"
+        cm_master       = "${local.cm_master}"
+        cm_client_key   = "${local.cm_client_key}"
+        cm_client_name  = "${local.cm_client_name}"
+        environment     = "${local.environment}"
     }
 }
 
