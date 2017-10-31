@@ -31,10 +31,11 @@ locals {
 
 
 
-
+  # TODO
   tags = {
-    Terraform = "true"
-    Environment = "${local.environment}"
+    Terraform     = "true"
+    Environment   = "${local.environment}"
+    Name          = "${local.name}"
   }
   #tags           = "${lookup(var.config, "tags" , var.tags)}"
 
