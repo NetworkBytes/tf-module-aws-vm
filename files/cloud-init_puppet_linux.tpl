@@ -1,3 +1,6 @@
+TODO
+convert to cloud-init
+
 #!/bin/bash
 role=${role}
 server_name=${name}
