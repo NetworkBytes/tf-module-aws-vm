@@ -1,4 +1,5 @@
 TODO
+convert to cloud-init
 
 <powershell>
 $DNSSuffix = "${dnssuffix}"

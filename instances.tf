@@ -19,8 +19,6 @@ resource "aws_instance" "this" {
   availability_zone                    = "${local.availability_zone}"
   placement_group                      = "${local.placement_group}"
 
-  # Note: network_interface can't be specified together with associate_public_ip_address
-
   #tags = "${merge(local.tags, map("Name", format("%s-%d", local.name, count.index+1)))}"
 
   
@@ -38,7 +36,7 @@ resource "aws_instance" "this" {
 
 
   provisioner "file" {
-    source = "${path.module}/scripts/getstatus_cloud-init.py"
+    source = "${path.module}/files/getstatus_cloud-init.py"
     destination = "/tmp/getstatus_cloud-init.py"
   }
 
