@@ -5,7 +5,7 @@ output "id" {
 
 output "user" {
   description = "User used to connect to the instances"
-  value       = ["${local.user}"]
+  value       = "${local.user}"
 }
 
 output "availability_zone" {
@@ -25,7 +25,7 @@ output "key_name" {
 
 output "key_file_private" {
   description = "Location of the private ssh key used to connect to the instance"
-  value       = ["${local.key_file_private}"]
+  value       = "${local.key_file_private}"
 }
 
 output "public_dns" {
