@@ -15,7 +15,7 @@ data "aws_ami" "ami" {
 ## User Data Config script
 ###################################
 data "template_file" "user_data" {
-    template = "${file("${path.module}/scripts/cloud-init_${local.cm_flavour}_${local.os}.tpl")}"
+    template = "${file("${path.module}/files/cloud-init_${local.cm_flavour}_${local.os}.tpl")}"
     vars {
         cm_role         = "${local.cm_role}"
         cm_hostname     = "${local.cm_hostname}"
