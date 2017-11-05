@@ -52,7 +52,7 @@ variable "count" {
 
 variable "cm_flavour" {
   description = "The configuration management software to use; valid options Puppet / Chef"
-  default = "chef"
+  default = "none"
 }
 
 variable "cm_master" {
@@ -62,7 +62,7 @@ variable "cm_master" {
 
 variable "cm_role" {
   description = "The configuration management role to apply to this host"
-  default = "web_server"
+  default = ""
 }
 
 variable "cm_client_key" {

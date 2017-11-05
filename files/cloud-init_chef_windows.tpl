@@ -1,6 +1,8 @@
 #cloud-config
 #package_upgrade: true
 
+
+#TODO test windows
 chef:
   install_type: omnibus
   #omnibus_url: "https://www.chef.io/chef/install.sh"

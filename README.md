@@ -60,7 +60,7 @@ gererated by terraform-docs
 | aws_region | The configuration management role to apply to this host | string | `ap-southeast-2` | no |
 | cm_client_key | The configuration management key to use when connecting to the master server | string | `` | no |
 | cm_client_name |  | string | `` | no |
-| cm_flavour | The configuration management software to use; valid options Puppet / Chef | string | `chef` | no |
+| cm_flavour | The configuration management software to use; valid options Puppet / Chef | string | `none` | no |
 | cm_hostname |  | string | `` | no |
 | cm_master | The configuration management master host or ip to use when configuring an instance; defaults to "cm_flavour" eg puppet | string | `` | no |
 | cm_role | The configuration management role to apply to this host | string | `web_server` | no |
