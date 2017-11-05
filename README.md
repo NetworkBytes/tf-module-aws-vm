@@ -90,6 +90,7 @@ Outputs
 |------|-------------|
 | availability_zone | List of availability zones of instances |
 | id | List of IDs of instances |
+| key_file_private | Location of the private ssh key used to connect to the instance |
 | key_name | List of key names of instances |
 | network_interface_id | List of IDs of the network interface of instances |
 | placement_group | List of placement groups of instances |
@@ -100,6 +101,7 @@ Outputs
 | public_ip | List of public IP addresses assigned to the instances, if applicable |
 | security_groups | List of associated security groups of instances |
 | subnet_id | List of IDs of VPC subnets of instances |
+| user | User used to connect to the instances |
 | vpc_security_group_ids | List of associated security groups of instances, if running in non-default VPC |
 
 

@@ -3,6 +3,11 @@ output "id" {
   value       = ["${aws_instance.this.*.id}"]
 }
 
+output "user" {
+  description = "User used to connect to the instances"
+  value       = ["${local.user}"]
+}
+
 output "availability_zone" {
   description = "List of availability zones of instances"
   value       = ["${aws_instance.this.*.availability_zone}"]
@@ -16,6 +21,11 @@ output "placement_group" {
 output "key_name" {
   description = "List of key names of instances"
   value       = ["${aws_instance.this.*.key_name}"]
+}
+
+output "key_file_private" {
+  description = "Location of the private ssh key used to connect to the instance"
+  value       = ["${local.key_file_private}"]
 }
 
 output "public_dns" {
