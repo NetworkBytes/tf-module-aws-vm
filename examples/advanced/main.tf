@@ -1,7 +1,7 @@
 resource "random_id" "key" { byte_length = 4 }
 resource "null_resource" "keygen" {
   provisioner "local-exec" {
-    command = "ssh-keygen -b 2048 -t rsa -f /tmp/key-${local.random_id} -q -N '' -C 'key-${local.random_id}'"
+    command = "ssh-keygen -b 2048 -t rsa -f key-${local.random_id} -q -N '' -C 'key-${local.random_id}'"
   }
 }
 
